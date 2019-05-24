@@ -1,0 +1,11 @@
+name: bbl_mlflow
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - numpy=1.14.3
+  - click
+  - scikit-multiflow==0.3.0
+  - pip:
+    - mlflow
+    - kafka-python

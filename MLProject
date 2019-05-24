@@ -1,0 +1,20 @@
+name: MLFLow and scikit-multiflow, a good match
+
+conda_env: conda.yaml
+
+entry_points:
+    producer:
+        parameters:
+            n_drifts: {type: int, default: 1000}
+            interval: {type: float, default: 0.5}
+            batch_size: {type: int, default: 10}
+            n_classes: {type: int, default: 3}
+            kafka_topic: {type: str, default: 'drift_detection'}
+            kafka_server: {type: str, default: 'localhost:9092'}
+
+        command: "python producer.py -n {n_drifts} -i {interval} -b {batch_size} -c {n_classes} -s {kafka_server} -t {kafka_topic}"
+
+    detect_drifts:
+        parameters:
+            delta: {type: float, default: 0.01}
+        command: "python detector.py -d {delta}"
