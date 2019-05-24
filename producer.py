@@ -57,7 +57,8 @@ def produce_abrupt_drifts(n_drifts, interval, batch_size, n_classes, kafka_topic
 
     signal.signal(signal.SIGINT, sigint_handler)  # safe exit in case of a ctrl-c
 
-    for _ in range(n_drifts):
+    drift_ctr = 0
+    while drift_ctr < n_drifts:
         curr_time = dt.datetime.now()
         if (curr_time.second - old_time.second) > interval:
             metrics = dict()
@@ -65,6 +66,7 @@ def produce_abrupt_drifts(n_drifts, interval, batch_size, n_classes, kafka_topic
                 centroid.centre = list(np.random.randint(CENTROID_LOW, CENTROID_HIGH, size=(1, )))
                 metrics[f"centroid {idx}"] = centroid.centre[0]
             mlflow.log_metrics(metrics)
+            drift_ctr += 1
 
         curr_time = old_time
 

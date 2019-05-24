@@ -32,14 +32,14 @@ conda config --add topics conda-forge
 
 ## RUN
 First make the producer send data though kafka
-Here we generate 100 concept drift, pushing 2k rows into kafka every 0.5 seconds
+Here we generate 100 concept drift, pushing 10 rows into kafka every 0.5 seconds
 ```bash
-mlflow run . -e producer -P n_classes=3
+mlflow run https://github.com/Quantmetry/mlflow.git/examples/abrupt_drift_detection -e producer -P n_drifts=100 -P interval=0.5 -P batch_size=10 -P n_classes=3
 ```
 
 Then we have the detector listening on the right kafka topic, crashing logs whenever a drift is detected
 ```bash
-mlflow run . -e detect_drifts -P delta=0.01
+mlflow run https://github.com/Quantmetry/MLflow_example.git -e detect_drifts -P delta=0.001
 ```
 
 Finally visualize all this in the MLFLow UI
