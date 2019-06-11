@@ -1,9 +1,13 @@
 # MLFLow and scikit-multiflow, a good match
 
-1. Generate abrupt drifts,
-2. Send them into a kafka topic
+1. Generate abrupt drifts via (by changing the centroids in a Radial Basis Function stream) 
+2. Send this data, containing drifts, into a kafka topic
 3. We listen to this kafka topic on another entry_point
 4. We detect drifts and log them into MLFlow
+
+Steps 1. and 2. are done in `producer.py`, while steps 3. and 4. are implemented in `detector.py`
+
+`producer.py` is just a script to generate synthetic data. Real-life applications should only require something looking like `detector.py`
 
 ## Install & Setup (OSX)
 For OSX users:
